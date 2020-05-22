@@ -1,0 +1,24 @@
+#app2 {
+  /* width: 50vw;
+height: 50vh; */
+}
+#app2 .tab-bar {
+  /* border: 1px solid red; */
+  display: flex;
+}
+#app2 .tab-bar li {
+  width: 50%;
+  border: 1px solid grey;
+}
+#app2 .tab-bar > li.selected {
+  background: #ccc;
+  color: white;
+}
+#app2 .tab-content {
+}
+#app2 .tab-content li {
+  display: none;
+}
+#app2 .tab-content > li.active {
+  display: block;
+}
