@@ -11294,6 +11294,8 @@ var _jquery = _interopRequireDefault(require("jquery"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n      <section id=\"app1\">\n        <div class=\"output\">\n          <span id=\"number\">100</span>\n        </div>\n        <div class=\"actions\">\n          <button id=\"add1\">+1</button>\n          <button id=\"subtract1\">-1</button>\n          <button id=\"multiply1\">*2</button>\n          <button id=\"divide1\">\xF72</button>\n        </div>\n      </section>";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $button1 = (0, _jquery.default)("#add1");
 var $button2 = (0, _jquery.default)("#subtract1");
 var $button3 = (0, _jquery.default)("#multiply1");
@@ -11340,14 +11342,20 @@ var _jquery = _interopRequireDefault(require("jquery"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n       <section id=\"app2\">\n        <ol class=\"tab-bar\">\n          <li><span>1</span></li>\n          <li><span>2</span></li>\n        </ol>\n        <ol class=\"tab-content\">\n          <li>\u5185\u5BB91</li>\n          <li>\u5185\u5BB92</li>\n        </ol>\n      </section>";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $tabBar = (0, _jquery.default)("#app2 .tab-bar");
 var $tabContent = (0, _jquery.default)("#app2 .tab-content");
+var localKey = 'app2.index';
+var index = localStorage.getItem(localKey) || 0; //||0用来做保底值
+
 $tabBar.on("click", "li", function (e) {
   var $li = (0, _jquery.default)(e.currentTarget); //e.target用户点击的元素 e.currentTarget   jquery封装，操作
 
   $li.addClass("selected").siblings().removeClass("selected");
   var index = $li.index(); //jquery元素.index(),排行第几
 
+  localStorage.setItem('app2.index', index);
   $tabContent.children() // .eq(index) //eq等于
   // .css({ display: "block" })
   // .siblings()
@@ -11358,7 +11366,7 @@ $tabBar.on("click", "li", function (e) {
   // .hide();//不能用show,hide,css
   .eq(index).addClass("active").siblings().removeClass("active"); //样式与行为分离
 });
-$tabBar.children().eq(0).trigger("click"); //trigger自动触发
+$tabBar.children().eq(index).trigger("click"); //trigger自动触发
 },{"./app2.css":"app2.css","jquery":"../node_modules/jquery/dist/jquery.js"}],"app3.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
@@ -11373,9 +11381,26 @@ require("./app3.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n <section id=\"app3\">\n        <div class=\"square\">123</div>\n      </section>";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $square = (0, _jquery.default)("#app3 .square");
+var localKey = "app3.active";
+var active = localStorage.getItem(localKey) === "yes"; // if(active){
+//   $square.addClass('active')
+// }else{
+//   $square.removeClass('active')
+// }
+
+$square.toggleClass("active", active);
 $square.on("click", function () {
-  $square.toggleClass("active"); //jQuery 内置的toggleClass根据匹配项的存在或状态参数的值，从匹配元素集中的每个元素中添加或删除一个或多个类    有就加上，没有就删掉
+  if ($square.hasClass("active")) {
+    $square.removeClass("active");
+    localStorage.setItem("app3.active", "no");
+  } else {
+    $square.addClass("active");
+    localStorage.setItem("app3.active", "yes");
+  } // $square.toggleClass("active"); //jQuery 内置的toggleClass根据匹配项的存在或状态参数的值，从匹配元素集中的每个元素中添加或删除一个或多个类    有就加上，没有就删掉
+
 });
 },{"jquery":"../node_modules/jquery/dist/jquery.js","./app3.css":"app3.css"}],"app4.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -11391,6 +11416,8 @@ require("./app4.css");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var html = "\n <section id=\"app4\">\n        <div class=\"circle\"></div>\n      </section>";
+var $element = (0, _jquery.default)(html).appendTo((0, _jquery.default)('body>.page'));
 var $circle = (0, _jquery.default)("#app4 .circle");
 $circle.on("mouseenter", function () {
   $circle.addClass("active");
@@ -11439,7 +11466,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55037" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58360" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
